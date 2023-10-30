@@ -6,7 +6,7 @@
 /*   By: disantam <disantam@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:14:07 by disantam          #+#    #+#             */
-/*   Updated: 2023/10/30 10:31:39 by disantam         ###   ########.fr       */
+/*   Updated: 2023/10/30 10:45:18 by disantam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,20 +121,4 @@ char	*get_next_line(int fd)
 	line = gnl_line(stack);
 	stack = gnl_restack(stack);
 	return (line);
-}
-
-int	main()
-{
-	int fd;
-	int	fd2;
-
-	fd = open("test2.txt", O_RDONLY);
-	fd2 = open("test3.txt", O_RDONLY);
-
-	printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd2));
-	printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd2));
-
-	return (0);
 }
