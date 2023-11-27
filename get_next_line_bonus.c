@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: disantam <disantam@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 16:14:07 by disantam          #+#    #+#             */
-/*   Updated: 2023/11/27 15:33:33 by disantam         ###   ########.fr       */
+/*   Created: 2023/11/27 15:32:36 by disantam          #+#    #+#             */
+/*   Updated: 2023/11/27 15:57:45 by disantam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*gnl_restack(char *stack)
 {
@@ -111,12 +111,12 @@ static char	*gnl_read(char *stack, int fd)
 char	*get_next_line(int fd)
 {
 	char		*line;	
-	static char	*stack;
+	static char	*stack[1024];
 
-	stack = gnl_read(stack, fd);
-	if (!stack)
+	stack[fd] = gnl_read(stack[fd], fd);
+	if (!stack[fd])
 		return (NULL);
-	line = gnl_line(stack);
-	stack = gnl_restack(stack);
+	line = gnl_line(stack[fd]);
+	stack[fd] = gnl_restack(stack[fd]);
 	return (line);
 }
