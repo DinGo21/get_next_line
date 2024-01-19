@@ -6,7 +6,7 @@
 /*   By: disantam <disantam@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:14:07 by disantam          #+#    #+#             */
-/*   Updated: 2023/11/27 16:12:23 by disantam         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:16:40 by disantam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ static char	*gnl_restack(char *stack)
 	c++;
 	c2 = 0;
 	while (stack[c] != '\0')
+	{
 		nstack[c2++] = stack[c++];
+	}
 	nstack[c2] = '\0';
 	free(stack);
 	return (nstack);
@@ -47,7 +49,9 @@ static char	*gnl_line(char *stack)
 	if (!stack[0])
 		return (NULL);
 	while (stack[c] != '\n' && stack[c] != '\0')
+	{
 		c++;
+	}
 	line = malloc(sizeof(char) * (c + 2));
 	if (!line)
 		return (NULL);
@@ -58,7 +62,9 @@ static char	*gnl_line(char *stack)
 		c++;
 	}
 	if (stack[c] == '\n')
+	{
 		line[c++] = '\n';
+	}
 	line[c] = '\0';
 	return (line);
 }
@@ -74,13 +80,19 @@ static char	*gnl_stacking(char *stack, char *buff)
 	c2 = ft_strlen(buff);
 	str = malloc(c1 + c2 + 1);
 	if (!str)
+	{
 		return (NULL);
+	}
 	i = -1;
 	while (i++ < c1)
+	{
 		str[i] = stack[i];
+	}
 	i = -1;
 	while (c1 + i++ < c1 + c2)
+	{
 		str[c1 + i] = buff[i];
+	}
 	str[c1 + c2] = '\0';
 	free(stack);
 	return (str);
@@ -101,7 +113,9 @@ static char	*gnl_read(char *stack, int fd)
 	{
 		nb = read(fd, buff, BUFFER_SIZE);
 		if (nb <= -1)
+		{
 			return (free(stack), NULL);
+		}
 		buff[nb] = '\0';
 		stack = gnl_stacking(stack, buff);
 	}
@@ -115,7 +129,9 @@ char	*get_next_line(int fd)
 
 	stack = gnl_read(stack, fd);
 	if (!stack)
+	{
 		return (NULL);
+	}
 	line = gnl_line(stack);
 	stack = gnl_restack(stack);
 	return (line);
